@@ -1,0 +1,13 @@
+id,processor_id,external_merchant_id,merchant_code,legal_name,display_name,country,status
+e4ffebc9-9c0b-4ef8-bb6d-6bb9bd380a55,a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11,merch_001,MERCH001,Acme Corp,Acme Store,US,active
+f5ffebc9-9c0b-4ef8-bb6d-6bb9bd380a66,a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11,merch_002,MERCH002,Beta LLC,Beta Shop,GB,active
+a6ffebc9-9c0b-4ef8-bb6d-6bb9bd380a77,a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11,merch_003,MERCH003,Gamma Inc,Gamma Market,GB,active
+b7ffebc9-9c0b-4ef8-bb6d-6bb9bd380a88,b1ffebc9-9c0b-4ef8-bb6d-6bb9bd380a22,MERCH001,MERCH001,Acme Corp,Acme Store,US,active
+c8ffebc9-9c0b-4ef8-bb6d-6bb9bd380a99,b1ffebc9-9c0b-4ef8-bb6d-6bb9bd380a22,MERCH002,MERCH002,Beta LLC,Beta Shop,FR,active
+d9ffebc9-9c0b-4ef8-bb6d-6bb9bd380aaa,b1ffebc9-9c0b-4ef8-bb6d-6bb9bd380a22,MERCH003,MERCH003,Gamma Inc,Gamma Market,GB,active
+e0ffebc9-9c0b-4ef8-bb6d-6bb9bd380bbb,c2ffebc9-9c0b-4ef8-bb6d-6bb9bd380a33,MERCHANT_R1,MERCH001,Acme Corp,Acme Store,US,active
+f1ffebc9-9c0b-4ef8-bb6d-6bb9bd380ccc,c2ffebc9-9c0b-4ef8-bb6d-6bb9bd380a33,MERCHANT_R2,MERCH002,Beta LLC,Beta Shop,DE,active
+a2ffebc9-9c0b-4ef8-bb6d-6bb9bd380ddd,c2ffebc9-9c0b-4ef8-bb6d-6bb9bd380a33,MERCHANT_R3,MERCH003,Gamma Inc,Gamma Market,GB,active
+b3ffebc9-9c0b-4ef8-bb6d-6bb9bd380eee,d3ffebc9-9c0b-4ef8-bb6d-6bb9bd380a44,CHK_MERCH_01,MERCH001,Acme Corp,Acme Store,US,active
+c4ffebc9-9c0b-4ef8-bb6d-6bb9bd380fff,d3ffebc9-9c0b-4ef8-bb6d-6bb9bd380a44,CHK_MERCH_02,MERCH002,Beta LLC,Beta Shop,NL,active
+d5ffebc9-9c0b-4ef8-bb6d-6bb9bd380aaa,d3ffebc9-9c0b-4ef8-bb6d-6bb9bd380a44,CHK_MERCH_03,MERCH003,Gamma Inc,Gamma Market,GB,active

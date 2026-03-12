@@ -1,0 +1,6 @@
+id,amount,currency,status,payment_method_type,payment_method_brand,payment_method_last4,customer_email,customer_country,merchant_id,created_at,metadata
+ch_1234567890abcdef,10000,usd,succeeded,card,visa,4242,john.doe@example.com,US,merch_001,2024-01-15 10:30:00,"{""order_id"": ""ORD-001"", ""product"": ""Widget""}"
+ch_2345678901bcdefg,25000,eur,succeeded,card,mastercard,5555,jane.smith@example.com,GB,merch_002,2024-01-15 11:45:00,"{""order_id"": ""ORD-002"", ""product"": ""Gadget""}"
+ch_3456789012cdefgh,5000,usd,failed,card,amex,1234,bob.jones@example.com,CA,merch_001,2024-01-15 12:00:00,"{""order_id"": ""ORD-003"", ""product"": ""Tool""}"
+ch_4567890123defghi,15000,gbp,succeeded,wallet,apple_pay,,alice.wong@example.com,GB,merch_003,2024-01-15 13:15:00,"{""order_id"": ""ORD-004"", ""product"": ""Service""}"
+ch_5678901234efghij,30000,usd,pending,card,visa,9876,charlie.brown@example.com,US,merch_001,2024-01-15 14:30:00,"{""order_id"": ""ORD-005"", ""product"": ""Subscription""}"

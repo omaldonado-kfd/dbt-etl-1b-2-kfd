@@ -1,0 +1,6 @@
+psp_reference,merchant_reference,amount_value,amount_currency,result_code,payment_method,card_brand,card_last4,shopper_email,shopper_country,merchant_account,creation_date,additional_data
+PSP123456789,REF-001,20000,USD,Authorised,scheme,visa,1111,david.lee@example.com,US,MERCH001,2024-01-15 10:00:00,"{""risk_score"": 15}"
+PSP234567890,REF-002,35000,EUR,Authorised,scheme,mastercard,2222,emma.wilson@example.com,FR,MERCH002,2024-01-15 11:00:00,"{""risk_score"": 8}"
+PSP345678901,REF-003,8000,GBP,Refused,scheme,amex,3333,frank.miller@example.com,GB,MERCH003,2024-01-15 12:00:00,"{""risk_score"": 85}"
+PSP456789012,REF-004,45000,USD,Authorised,wallet,applepay,,grace.chen@example.com,US,MERCH001,2024-01-15 13:00:00,"{""risk_score"": 5}"
+PSP567890123,REF-005,12000,EUR,Pending,scheme,visa,4444,henry.garcia@example.com,ES,MERCH002,2024-01-15 14:00:00,"{""risk_score"": 20}"

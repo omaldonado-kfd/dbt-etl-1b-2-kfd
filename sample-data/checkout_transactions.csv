@@ -1,0 +1,6 @@
+payment_id,reference,amount,currency,status,source_type,card_scheme,card_last4,customer_email,billing_country,merchant_id,processed_on,metadata
+PAY_CHK_001,CHK-REF-001,22000,USD,Captured,card,Visa,9999,noah.davis@example.com,US,CHK_MERCH_01,2024-01-15 09:00:00,"{""session_id"": ""sess_001""}"
+PAY_CHK_002,CHK-REF-002,41000,EUR,Captured,card,Mastercard,0000,olivia.wang@example.com,NL,CHK_MERCH_02,2024-01-15 10:00:00,"{""session_id"": ""sess_002""}"
+PAY_CHK_003,CHK-REF-003,7500,GBP,Declined,card,Visa,1122,peter.clark@example.com,GB,CHK_MERCH_03,2024-01-15 11:00:00,"{""session_id"": ""sess_003""}"
+PAY_CHK_004,CHK-REF-004,55000,USD,Captured,wallet,ApplePay,,quinn.lee@example.com,US,CHK_MERCH_01,2024-01-15 12:00:00,"{""session_id"": ""sess_004""}"
+PAY_CHK_005,CHK-REF-005,16000,EUR,Pending,card,Amex,3344,rachel.kim@example.com,BE,CHK_MERCH_02,2024-01-15 13:00:00,"{""session_id"": ""sess_005""}"

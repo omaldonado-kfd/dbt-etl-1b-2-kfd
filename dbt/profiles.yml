@@ -1,0 +1,13 @@
+payment_analytics:
+  outputs:
+    dev:
+      type: postgres
+      host: postgres
+      port: 5432
+      user: postgres
+      pass: postgres
+      dbname: payments
+      schema: public
+      threads: 4
+      keepalives_idle: 0
+  target: dev

@@ -1,0 +1,5 @@
+id,name,display_name,environment,is_active
+a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11,stripe,Stripe,production,true
+b1ffebc9-9c0b-4ef8-bb6d-6bb9bd380a22,adyen,Adyen,production,true
+c2ffebc9-9c0b-4ef8-bb6d-6bb9bd380a33,rapyd,Rapyd,production,true
+d3ffebc9-9c0b-4ef8-bb6d-6bb9bd380a44,checkout,Checkout.com,production,true

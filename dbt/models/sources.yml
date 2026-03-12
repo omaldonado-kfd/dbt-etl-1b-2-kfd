@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: raw_data
+    schema: raw_data
+    tables:
+      - name: stripe_transactions
+        description: Raw Stripe transaction data
+      - name: adyen_transactions
+        description: Raw Adyen transaction data
+      - name: rapyd_transactions
+        description: Raw Rapyd transaction data
+      - name: checkout_transactions
+        description: Raw Checkout.com transaction data
+      - name: processors
+        description: Raw processor data
+      - name: merchants
+        description: Raw merchant data

@@ -1,0 +1,201 @@
+version: '3.8'
+
+x-airbyte-env: &airbyte-env
+  AIRBYTE_VERSION: 0.50.33
+  DATABASE_PASSWORD: postgres
+  DATABASE_USER: postgres
+  DATABASE_DB: airbyte
+  DATABASE_URL: postgresql://postgres:postgres@postgres:5432/airbyte
+  CONFIG_DATABASE_PASSWORD: postgres
+  CONFIG_DATABASE_USER: postgres
+  CONFIG_DATABASE_URL: postgresql://postgres:postgres@postgres:5432/airbyte
+  TEMPORAL_HOST: airbyte-temporal:7233
+  INTERNAL_API_HOST: airbyte-server:8001
+  S3_LOG_BUCKET: airbyte-dev-logs
+  S3_LOG_BUCKET_REGION: us-east-1
+  LOCAL_ROOT: /tmp/airbyte_local
+  WORKSPACE_ROOT: /tmp/workspace
+  WORKSPACE_DOCKER_MOUNT: airbyte_workspace
+  SUBMITTER_NUM_THREADS: 10
+  WORKER_ENVIRONMENT: docker
+  DOCKER_NETWORK: payment-etl-demo_default
+  LOG_LEVEL: INFO
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_MULTIPLE_DATABASES: airbyte,payments_raw,payments
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init/init-db.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./sample-data:/sample-data:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Airbyte Bootloader
+  init:
+    image: airbyte/init:0.50.33
+    container_name: init
+    command: /bin/sh -c "./scripts/init.sh"
+    environment:
+      <<: *airbyte-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - airbyte_workspace:/data
+
+  # Airbyte Temporal
+  airbyte-temporal:
+    image: airbyte/temporal:0.50.33
+    container_name: airbyte-temporal
+    restart: unless-stopped
+    environment:
+      <<: *airbyte-env
+      DB: postgresql
+      DB_PORT: 5432
+      DYNAMIC_CONFIG_FILE_PATH: config/dynamicconfig/development.yaml
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - temporal_data:/config
+
+  # Airbyte Webapp
+  airbyte-webapp:
+    image: airbyte/webapp:0.50.33
+    container_name: airbyte-webapp
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      AIRBYTE_VERSION: 0.50.33
+      INTERNAL_API_HOST: airbyte-server:8001
+      CONNECTOR_BUILDER_API_HOST: airbyte-connector-builder-server:8080
+    depends_on:
+      - airbyte-server
+
+  # Airbyte Server
+  airbyte-server:
+    image: airbyte/server:0.50.33
+    container_name: airbyte-server
+    restart: unless-stopped
+    environment:
+      <<: *airbyte-env
+      AIRBYTE_ROLE: dev
+      AIRBYTE_VERSION: 0.50.33
+    ports:
+      - "8001:8001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      airbyte-temporal:
+        condition: service_started
+    volumes:
+      - airbyte_workspace:/tmp/workspace
+      - airbyte_data:/data
+      - ./sample-data:/sample-data:ro
+
+  # Airbyte Worker
+  airbyte-worker:
+    image: airbyte/worker:0.50.33
+    container_name: airbyte-worker
+    restart: unless-stopped
+    environment:
+      <<: *airbyte-env
+      AIRBYTE_VERSION: 0.50.33
+      DEPLOYMENT_MODE: default
+    depends_on:
+      postgres:
+        condition: service_healthy
+      airbyte-temporal:
+        condition: service_started
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - airbyte_workspace:/tmp/workspace
+      - ./sample-data:/sample-data:ro
+
+  # Airbyte Scheduler
+  airbyte-scheduler:
+    image: airbyte/scheduler:0.50.33
+    container_name: airbyte-scheduler
+    restart: unless-stopped
+    environment:
+      <<: *airbyte-env
+      AIRBYTE_VERSION: 0.50.33
+    depends_on:
+      postgres:
+        condition: service_healthy
+      airbyte-temporal:
+        condition: service_started
+    volumes:
+      - airbyte_workspace:/tmp/workspace
+
+  # Airbyte Connector Builder
+  airbyte-connector-builder-server:
+    image: airbyte/connector-builder-server:0.50.33
+    container_name: airbyte-connector-builder-server
+    restart: unless-stopped
+    environment:
+      AIRBYTE_VERSION: 0.50.33
+    ports:
+      - "8080:8080"
+    depends_on:
+      - airbyte-server
+
+  # DBT
+  dbt:
+    build:
+      context: ./dbt
+      dockerfile: Dockerfile
+    container_name: dbt
+    restart: unless-stopped
+    environment:
+      DBT_PROFILES_DIR: /usr/app
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: payments
+      POSTGRES_PORT: 5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./dbt:/usr/app
+      - ./scripts:/scripts
+    command: ["tail", "-f", "/dev/null"]
+
+  # Airbyte Proxy
+  airbyte-proxy:
+    image: airbyte/proxy:0.50.33
+    container_name: airbyte-proxy
+    restart: unless-stopped
+    ports:
+      - "8003:8000"
+    environment:
+      PROXY_PASS_WEB: http://airbyte-webapp:80
+      PROXY_PASS_API: http://airbyte-server:8001
+    depends_on:
+      - airbyte-webapp
+      - airbyte-server
+
+volumes:
+  postgres_data:
+  airbyte_workspace:
+  airbyte_data:
+  temporal_data:
+
+networks:
+  default:
+    name: payment-etl-demo_default

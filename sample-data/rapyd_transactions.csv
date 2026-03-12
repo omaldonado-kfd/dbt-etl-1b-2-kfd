@@ -1,0 +1,6 @@
+transaction_id,order_id,amount,currency,status,payment_method_type,card_brand,card_last4,customer_email,customer_country,merchant_id,created_at,metadata
+TXN_RAP_001,ORDER_R001,15000,USD,success,card,Visa,5555,iris.johnson@example.com,US,MERCHANT_R1,2024-01-15 09:30:00,"{""channel"": ""web""}"
+TXN_RAP_002,ORDER_R002,28000,EUR,success,card,Mastercard,6666,jack.thomas@example.com,DE,MERCHANT_R2,2024-01-15 10:30:00,"{""channel"": ""mobile""}"
+TXN_RAP_003,ORDER_R003,6500,GBP,failed,card,Visa,7777,kate.anderson@example.com,GB,MERCHANT_R3,2024-01-15 11:30:00,"{""channel"": ""api""}"
+TXN_RAP_004,ORDER_R004,32000,USD,success,ewallet,GooglePay,,liam.martinez@example.com,US,MERCHANT_R1,2024-01-15 12:30:00,"{""channel"": ""web""}"
+TXN_RAP_005,ORDER_R005,18000,EUR,processing,card,Amex,8888,mia.rodriguez@example.com,IT,MERCHANT_R2,2024-01-15 13:30:00,"{""channel"": ""pos""}"

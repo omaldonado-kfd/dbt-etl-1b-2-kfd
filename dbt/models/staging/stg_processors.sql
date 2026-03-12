@@ -1,0 +1,20 @@
+SELECT
+    id,
+    name,
+    display_name,
+    NULL as api_version,
+    environment,
+    NULL as base_url,
+    NULL as webhook_url,
+    NULL as api_key_hint,
+    NULL as account_id,
+    NULL::TEXT[] as supported_currencies,
+    NULL::TEXT[] as supported_payment_methods,
+    false as supports_partial_capture,
+    true as supports_partial_refund,
+    false as supports_recurring,
+    is_active,
+    NULL::JSONB as configuration,
+    CURRENT_TIMESTAMP as created_at,
+    CURRENT_TIMESTAMP as updated_at
+FROM {{ source('raw_data', 'processors') }}

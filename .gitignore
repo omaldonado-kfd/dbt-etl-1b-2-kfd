@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*\$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+
+# DBT
+target/
+dbt_packages/
+logs/
+.user.yml
+
+# Docker
+*.log
+.docker/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Data
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment
+.env.local
+.env.*.local
+
+# Airbyte
+airbyte_workspace/
+airbyte_data/
+temporal_data/
