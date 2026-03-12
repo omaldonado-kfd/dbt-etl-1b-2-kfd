@@ -12,7 +12,7 @@ merchants AS (
     WHERE processor_id = (SELECT processor_id FROM processors)
 )
 SELECT
-    uuid_generate_v4() as id,
+    gen_random_uuid() as id,
     p.processor_id,
     m.merchant_id,
     s.payment_id as transaction_id,
